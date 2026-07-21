@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rushda &amp; Shafeeque — Wedding Invitation</title>
+<meta name="description" content="Together with their families, Rushda and Shafeeque invite you to celebrate their wedding.">
+<meta name="theme-color" content="#171008">
+
+<!-- ── Link preview (WhatsApp / Instagram / iMessage) ─────────────────
+     og:image must be an ABSOLUTE url for WhatsApp to show a thumbnail.
+     Once the page is live, replace the two URLs below with your real link,
+     e.g.  https://yourname.github.io/wedding/couple.jpg
+     Until then the link still works — it just previews as plain text.     -->
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="Rushda &amp; Shafeeque — Wedding Invitation">
+<meta property="og:description" content="Together with their families, we invite you to celebrate our wedding.">
+<meta property="og:image"       content="couple.jpg">
+<meta property="og:url"         content="">
+<meta name="twitter:card"       content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+/* ══════════════════════════════════════════════════════════════════
+   PALETTE
+   ══════════════════════════════════════════════════════════════════ */
+:root{
+  --ink:        #2c2115;
+  --ink-soft:   #6b5a45;
+  --ivory:      #fdfaf2;
+  --ivory-2:    #f6efe0;
+  --gold:       #b28e4e;
+  --gold-lite:  #e2c98d;
+  --gold-deep:  #8a6a31;
+  --wax:        #8d2f2a;
+  --bg-1:       #171008;
+  --bg-2:       #2a1e10;
+  --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --script: "Great Vibes", "Snell Roundhand", "Apple Chancery", cursive;
+}
+
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+
+html,body{ height:100%; }
+body{
+  font-family:var(--serif);
+  color:var(--ink);
+  background:
+    radial-gradient(120% 90% at 50% 0%,  #3a2a16 0%, transparent 60%),
+    radial-gradient(100% 80% at 50% 100%, #2e2010 0%, transparent 55%),
+    linear-gradient(160deg, var(--bg-1), var(--bg-2) 55%, var(--bg-1));
+  background-attachment:fixed;
+  min-height:100svh;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* Ambient gold motes */
+#motes{ position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+.mote{
+  position:absolute; border-radius:50%;
+  background:radial-gradient(circle, var(--gold-lite), rgba(226,201,141,0));
+  opacity:0; animation:drift linear infinite;
+}
+@keyframes drift{
+  0%   { transform:translateY(12vh) scale(.6); opacity:0; }
+  15%  { opacity:.75; }
+  85%  { opacity:.55; }
+  100% { transform:translateY(-105vh) scale(1.1); opacity:0; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   STAGE 1 — THE ENVELOPE
+   ══════════════════════════════════════════════════════════════════ */
+#scene{
+  position:fixed; inset:0; z-index:3;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:38px; padding:24px;
+  perspective:1500px;
+  transition:transform 1.1s cubic-bezier(.5,0,.3,1), opacity .9s ease .2s, filter 1.1s ease;
+}
+#scene.gone{ transform:scale(2.35) translateY(-4%); opacity:0; filter:blur(14px); pointer-events:none; }
+
+.envelope{
+  position:relative;
+  width:min(330px, 84vw);
+  aspect-ratio:1.52/1;
+  transform-style:preserve-3d;
+  cursor:pointer;
+  filter:drop-shadow(0 30px 45px rgba(0,0,0,.55));
+  animation:breathe 4.5s ease-in-out infinite;
+}
+@keyframes breathe{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-9px); } }
+.envelope.opened{ animation:none; cursor:default; }
+
+/* back panel */
+.env-back{
+  position:absolute; inset:0; z-index:1; border-radius:5px;
+  background:linear-gradient(160deg,#efe6d2,#dfd2b6);
+}
+
+/* the letter that rises out */
+.letter{
+  position:absolute; left:7%; width:86%; height:74%; bottom:9%;
+  z-index:3; border-radius:3px;
+  background:linear-gradient(165deg,var(--ivory),var(--ivory-2));
+  box-shadow:0 4px 14px rgba(0,0,0,.22);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+  transition:transform 1.15s cubic-bezier(.22,1,.3,1) .55s;
+}
+.opened .letter{ transform:translateY(-64%); }
+.letter .l-rule{ width:44px; height:1px; background:var(--gold); opacity:.65; }
+.letter .l-name{ font-family:var(--script); font-size:20px; color:var(--gold-deep); line-height:1.1; }
+
+/* front panel with diagonal folds */
+.env-front{
+  position:absolute; inset:0; z-index:5; border-radius:5px; overflow:hidden;
+  background:linear-gradient(160deg,#f4ebd8,#e6d9bd);
+  box-shadow:inset 0 0 0 1px rgba(178,142,78,.45);
+}
+.env-front::before,.env-front::after{
+  content:""; position:absolute; bottom:0; width:76%; height:200%;
+  background:linear-gradient(150deg,#f8f1e1,#e9dcc1);
+  box-shadow:0 0 0 1px rgba(178,142,78,.35);
+}
+.env-front::before{ left:-16%;  transform:skewX(31deg);  transform-origin:bottom left; }
+.env-front::after { right:-16%; transform:skewX(-31deg); transform-origin:bottom right; }
+
+/* flap */
+.env-flap{
+  position:absolute; top:0; left:0; width:100%; height:57%;
+  z-index:6; transform-origin:top center; backface-visibility:hidden;
+  background:linear-gradient(180deg,#f7efdd,#eadcbf);
+  clip-path:polygon(0 0, 100% 0, 50% 100%);
+  box-shadow:inset 0 -1px 0 rgba(178,142,78,.5);
+  transition:transform .95s cubic-bezier(.6,-.15,.3,1), z-index 0s .45s;
+}
+.opened .env-flap{ transform:rotateX(180deg); z-index:2; }
+
+/* wax seal */
+.seal{
+  position:absolute; left:50%; top:50%; z-index:7;
+  width:66px; height:66px; margin:-33px 0 0 -33px; border-radius:50%;
+  display:grid; place-items:center;
+  background:radial-gradient(circle at 35% 30%, #b9433c, var(--wax) 55%, #6d211d);
+  box-shadow:0 6px 14px rgba(0,0,0,.4), inset 0 0 0 2px rgba(226,201,141,.55);
+  font-family:var(--script); font-size:23px; color:#f3dca8; text-shadow:0 1px 2px rgba(0,0,0,.4);
+  transition:transform .55s cubic-bezier(.4,1.6,.5,1), opacity .5s ease;
+}
+.opened .seal{ transform:scale(1.9) rotate(28deg); opacity:0; }
+
+.tap-hint{
+  text-align:center; color:var(--gold-lite);
+  transition:opacity .4s ease;
+}
+.tap-hint .th-text{
+  font-size:13px; letter-spacing:.34em; text-transform:uppercase; font-weight:500;
+  opacity:.9;
+}
+.tap-hint .th-arrow{
+  display:block; margin:12px auto 0; width:9px; height:9px;
+  border-left:1px solid var(--gold-lite); border-bottom:1px solid var(--gold-lite);
+  transform:rotate(-45deg); animation:nudge 1.9s ease-in-out infinite;
+}
+@keyframes nudge{ 0%,100%{ transform:rotate(-45deg) translate(0,0); opacity:.4; } 50%{ transform:rotate(-45deg) translate(-4px,4px); opacity:1; } }
+.opened ~ .tap-hint, .tap-hint.hide{ opacity:0; }
+
+/* ══════════════════════════════════════════════════════════════════
+   STAGE 2 — THE INVITATION
+   ══════════════════════════════════════════════════════════════════ */
+#invite{
+  position:relative; z-index:2;
+  opacity:0; pointer-events:none;
+  transition:opacity 1s ease .35s;
+  padding:34px 18px 60px;
+  display:flex; justify-content:center;
+}
+#invite.show{ opacity:1; pointer-events:auto; }
+
+.card{
+  width:100%; max-width:430px;
+  background:
+    radial-gradient(90% 55% at 50% 0%, #fffdf7, transparent 70%),
+    linear-gradient(170deg, var(--ivory) 0%, var(--ivory-2) 100%);
+  border-radius:4px;
+  padding:44px 30px 40px;
+  text-align:center;
+  box-shadow:0 34px 70px rgba(0,0,0,.5), 0 0 0 1px rgba(178,142,78,.35);
+  position:relative;
+}
+/* inner gold hairline frame */
+.card::before{
+  content:""; position:absolute; inset:11px;
+  border:1px solid rgba(178,142,78,.42); border-radius:2px; pointer-events:none;
+}
+.card::after{
+  content:""; position:absolute; inset:15px;
+  border:1px solid rgba(178,142,78,.18); border-radius:1px; pointer-events:none;
+}
+
+/* staggered reveal */
+.rv{ opacity:0; transform:translateY(20px); transition:opacity .85s ease, transform .85s cubic-bezier(.2,.8,.3,1); }
+.show .rv{ opacity:1; transform:none; }
+
+.orn{ display:block; margin:0 auto; color:var(--gold); }
+
+.eyebrow{
+  font-size:11.5px; letter-spacing:.36em; text-transform:uppercase;
+  color:var(--ink-soft); font-weight:500; line-height:2;
+}
+.bismillah{
+  font-family:var(--script); font-size:20px; color:var(--gold-deep);
+  margin-bottom:6px;
+}
+
+/* photo */
+.photo-wrap{ margin:28px auto 16px; width:172px; }
+.photo-frame{
+  position:relative; border-radius:86px 86px 8px 8px; overflow:hidden;
+  aspect-ratio:3/4;
+  box-shadow:0 0 0 1px var(--gold), 0 0 0 6px var(--ivory), 0 0 0 7px rgba(178,142,78,.45),
+             0 16px 30px rgba(44,33,21,.28);
+  background:linear-gradient(160deg,#eee3cd,#ddd0b2);
+}
+.photo-frame img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* names */
+.names{ margin:30px 0 6px; }
+.name{
+  font-family:var(--script);
+  font-size:clamp(46px, 15vw, 62px);
+  line-height:1.02; color:var(--ink);
+  text-shadow:0 1px 0 rgba(255,255,255,.7);
+}
+.amp{
+  font-family:var(--serif); font-style:italic; font-weight:300;
+  font-size:26px; color:var(--gold); margin:4px 0; line-height:1;
+}
+
+.rule{
+  display:flex; align-items:center; justify-content:center; gap:11px;
+  margin:26px 0 22px; color:var(--gold);
+}
+.rule i{ display:block; height:1px; width:52px; background:linear-gradient(90deg,transparent,var(--gold)); }
+.rule i+i{ background:linear-gradient(90deg,var(--gold),transparent); }
+.rule span{ font-size:9px; letter-spacing:.2em; }
+
+/* date */
+.date-line{
+  display:flex; align-items:center; justify-content:center; gap:16px;
+  font-size:15px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft);
+}
+.date-line b{
+  font-weight:400; font-size:40px; letter-spacing:.02em; color:var(--ink);
+  border-block:1px solid rgba(178,142,78,.5); padding:4px 0; line-height:1.1;
+}
+.date-tbd{
+  font-family:var(--serif); font-style:italic; font-size:21px; color:var(--ink-soft);
+}
+.time{ margin-top:12px; font-size:15px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); }
+
+/* countdown */
+.countdown{ display:flex; justify-content:center; gap:8px; margin-top:24px; }
+.cd-cell{
+  min-width:60px; padding:11px 6px 9px;
+  background:rgba(178,142,78,.08); border:1px solid rgba(178,142,78,.28); border-radius:3px;
+}
+.cd-cell b{ display:block; font-size:26px; font-weight:400; color:var(--ink); line-height:1; }
+.cd-cell span{ display:block; margin-top:5px; font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); }
+
+/* venue */
+.venue{ margin-top:8px; }
+.venue h3{ font-size:22px; font-weight:500; letter-spacing:.02em; margin-bottom:7px; }
+.venue p{ font-size:16px; font-weight:300; line-height:1.65; color:var(--ink-soft); }
+
+/* events */
+.events{ margin-top:30px; display:grid; gap:16px; }
+.event{
+  padding:15px 14px; border:1px solid rgba(178,142,78,.3); border-radius:3px;
+  background:rgba(255,255,255,.42);
+}
+.event h4{ font-size:12px; letter-spacing:.28em; text-transform:uppercase; font-weight:500; color:var(--gold-deep); }
+.event p{ margin-top:6px; font-size:16px; font-weight:300; color:var(--ink-soft); line-height:1.55; }
+
+/* message */
+.message{
+  margin-top:30px; font-size:17.5px; font-weight:300; line-height:1.85;
+  font-style:italic; color:var(--ink-soft);
+}
+
+/* actions */
+.actions{ margin-top:32px; display:grid; gap:10px; }
+.btn{
+  display:flex; align-items:center; justify-content:center; gap:9px;
+  padding:14px 16px; border-radius:2px; cursor:pointer;
+  font-family:var(--serif); font-size:12.5px; letter-spacing:.24em; text-transform:uppercase; font-weight:500;
+  border:1px solid var(--gold); background:transparent; color:var(--gold-deep);
+  text-decoration:none; transition:background .25s ease, color .25s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn:active{ background:var(--gold); color:var(--ivory); }
+.btn svg{ width:15px; height:15px; }
+@media (hover:hover){ .btn:hover{ background:var(--gold); color:var(--ivory); } }
+
+.signoff{ margin-top:34px; font-family:var(--script); font-size:27px; color:var(--gold-deep); line-height:1.35; }
+.hashtag{ margin-top:14px; font-size:12px; letter-spacing:.26em; text-transform:uppercase; color:var(--ink-soft); }
+
+.toast{
+  position:fixed; left:50%; bottom:28px; transform:translate(-50%,20px);
+  background:var(--ink); color:var(--ivory); padding:11px 20px; border-radius:2px;
+  font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+  opacity:0; pointer-events:none; transition:all .3s ease; z-index:20;
+}
+.toast.on{ opacity:1; transform:translate(-50%,0); }
+
+.hidden{ display:none !important; }
+
+@media (max-width:360px){
+  .card{ padding:36px 20px 34px; }
+  .cd-cell{ min-width:52px; }
+}
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.001s !important; transition-duration:.25s !important; }
+  #motes{ display:none; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="motes"></div>
+
+<!-- ─────────── ENVELOPE ─────────── -->
+<div id="scene">
+  <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Tap to open the invitation">
+    <div class="env-back"></div>
+    <div class="letter">
+      <span class="l-name" id="letterNames">Rushda &amp; Shafeeque</span>
+      <span class="l-rule"></span>
+    </div>
+    <div class="env-front"></div>
+    <div class="env-flap"></div>
+    <div class="seal" id="seal">RS</div>
+  </div>
+  <div class="tap-hint" id="tapHint">
+    <span class="th-text">Tap to open</span>
+    <span class="th-arrow"></span>
+  </div>
+</div>
+
+<!-- ─────────── INVITATION ─────────── -->
+<main id="invite">
+  <article class="card">
+
+    <div class="rv" style="transition-delay:.10s">
+      <svg class="orn" width="86" height="26" viewBox="0 0 86 26" fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M3 13h24M59 13h24"/>
+        <path d="M43 4c-4 3-7 6-7 9s3 6 7 9c4-3 7-6 7-9s-3-6-7-9z"/>
+        <circle cx="43" cy="13" r="2.2" fill="currentColor" stroke="none"/>
+        <circle cx="31.5" cy="13" r="1.6" fill="currentColor" stroke="none"/>
+        <circle cx="54.5" cy="13" r="1.6" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+
+    <p class="bismillah rv hidden" id="topLine" style="transition-delay:.16s"></p>
+    <p class="eyebrow rv" id="eyebrow" style="transition-delay:.20s">Together with their families</p>
+
+    <div class="photo-wrap rv hidden" id="photoWrap" style="transition-delay:.26s">
+      <div class="photo-frame"><img id="photo" alt="" ></div>
+    </div>
+
+    <div class="names rv" style="transition-delay:.34s">
+      <div class="name" id="nameA">Rushda</div>
+      <div class="amp">&amp;</div>
+      <div class="name" id="nameB">Shafeeque</div>
+    </div>
+
+    <p class="eyebrow rv" id="subEyebrow" style="transition-delay:.40s">Request the pleasure of your company</p>
+
+    <div class="rule rv" style="transition-delay:.46s"><i></i><span>◆</span><i></i></div>
+
+    <div class="rv" id="dateBlock" style="transition-delay:.52s"></div>
+    <div class="countdown rv hidden" id="countdown" style="transition-delay:.58s"></div>
+
+    <div class="rule rv" style="transition-delay:.62s"><i></i><span>◆</span><i></i></div>
+
+    <div class="venue rv" id="venueBlock" style="transition-delay:.66s"></div>
+
+    <div class="events rv hidden" id="events" style="transition-delay:.72s"></div>
+
+    <p class="message rv" id="message" style="transition-delay:.78s"></p>
+
+    <div class="actions rv" id="actions" style="transition-delay:.84s"></div>
+
+    <p class="signoff rv" id="signoff" style="transition-delay:.90s"></p>
+    <p class="hashtag rv hidden" id="hashtag" style="transition-delay:.94s"></p>
+
+    <div class="rv" style="transition-delay:.98s;margin-top:26px">
+      <svg class="orn" width="86" height="26" viewBox="0 0 86 26" fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M3 13h24M59 13h24"/>
+        <path d="M43 22c-4-3-7-6-7-9s3-6 7-9c4 3 7 6 7 9s-3 6-7 9z"/>
+        <circle cx="43" cy="13" r="2.2" fill="currentColor" stroke="none"/>
+        <circle cx="31.5" cy="13" r="1.6" fill="currentColor" stroke="none"/>
+        <circle cx="54.5" cy="13" r="1.6" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+
+  </article>
+</main>
+
+<div class="toast" id="toast">Link copied</div>
+
+<script>
+/* ╔══════════════════════════════════════════════════════════════════╗
+   ║  EDIT EVERYTHING HERE — nothing below this block needs touching  ║
+   ╚══════════════════════════════════════════════════════════════════╝ */
+const CONFIG = {
+
+  /* ── The couple ─────────────────────────────────────────────── */
+  bride : "Rushda",
+  groom : "Shafeeque",
+  initials : "RS",                 // shown on the wax seal
+
+  /* ── Optional line above the names ──────────────────────────── */
+  // Leave "" to hide. e.g. "Bismillahir Rahmanir Raheem"
+  topLine : "",
+  eyebrow : "Together with their families",
+  subEyebrow : "request the pleasure of your company",
+
+  /* ── PHOTO OF THE COUPLE ────────────────────────────────────── *
+   *  1. Put the image file in this SAME folder as index.html
+   *  2. Name it couple.jpg  (or change the line below to match)
+   *  3. Leave "" to hide the photo entirely
+   *  Portrait orientation looks best (roughly 3:4, e.g. 900×1200px)
+   * ───────────────────────────────────────────────────────────── */
+  photo : "couple.jpg",
+
+  /* ── Date & time ────────────────────────────────────────────── *
+   *  Not fixed yet? Leave date as "" — the card shows a graceful
+   *  "date to be announced" and hides the countdown/calendar.
+   *
+   *  When you know it, use 24-hour format:
+   *     date : "2026-08-12T18:00"      ← 12 Aug 2026, 6:00 PM
+   * ───────────────────────────────────────────────────────────── */
+  date : "",
+  dateTBA : "Date to be announced",
+  endTime : "",                    // optional, e.g. "2026-08-12T22:00"
+
+  /* ── Venue ──────────────────────────────────────────────────── */
+  venueName    : "Venue to be announced",
+  venueAddress : "Details will follow soon",
+  mapsUrl      : "",               // paste a Google Maps link to show the Directions button
+
+  /* ── Additional events (optional) ───────────────────────────── *
+   *  Delete the entries or set to [] to hide this section.
+   * ───────────────────────────────────────────────────────────── */
+  events : [
+    // { title: "Nikah",     detail: "10:00 AM · Venue name" },
+    // { title: "Reception", detail: "7:00 PM · Venue name"  },
+  ],
+
+  /* ── The invitation message ─────────────────────────────────── */
+  message : "Two hearts, two families, one beautiful beginning. " +
+            "Your presence would make our happiness complete — " +
+            "we would be honoured to have you share this day with us.",
+
+  signoff : "With love,<br>Rushda &amp; Shafeeque",
+  hashtag : "",                    // e.g. "#RushdaWedsShafeeque"
+
+  /* ── Misc ───────────────────────────────────────────────────── */
+  shareText : "You're invited to Rushda & Shafeeque's wedding 💛",
+};
+/* ══════════════════ END OF EDITABLE SECTION ══════════════════════ */
+
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+const show = (el, html) => { el.innerHTML = html; el.classList.remove("hidden"); };
+const pad = n => String(n).padStart(2, "0");
+
+const hasDate = !!CONFIG.date;
+const when = hasDate ? new Date(CONFIG.date) : null;
+const MONTHS = ["January","February","March","April","May","June",
+                "July","August","September","October","November","December"];
+const DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+/* ---------- names ---------- */
+document.title = `${CONFIG.bride} & ${CONFIG.groom} — Wedding Invitation`;
+$("nameA").textContent = CONFIG.bride;
+$("nameB").textContent = CONFIG.groom;
+$("seal").textContent  = CONFIG.initials;
+$("letterNames").innerHTML = `${CONFIG.bride} &amp; ${CONFIG.groom}`;
+$("eyebrow").textContent = CONFIG.eyebrow;
+$("subEyebrow").textContent = CONFIG.subEyebrow;
+if (CONFIG.topLine) show($("topLine"), CONFIG.topLine);
+
+/* ---------- photo ---------- */
+if (CONFIG.photo) {
+  const img = $("photo");
+  img.alt = `${CONFIG.bride} and ${CONFIG.groom}`;
+  img.onload  = () => $("photoWrap").classList.remove("hidden");
+  img.onerror = () => $("photoWrap").classList.add("hidden");  // no file yet → silently hidden
+  img.src = CONFIG.photo;
+}
+
+/* ---------- date ---------- */
+if (hasDate) {
+  const t = when.getHours() % 12 || 12;
+  const ampm = when.getHours() >= 12 ? "PM" : "AM";
+  $("dateBlock").innerHTML = `
+    <div class="date-line">
+      <span>${DAYS[when.getDay()]}</span>
+      <b>${pad(when.getDate())}</b>
+      <span>${MONTHS[when.getMonth()]}<br>${when.getFullYear()}</span>
+    </div>
+    <div class="time">${t}:${pad(when.getMinutes())} ${ampm} onwards</div>`;
+} else {
+  $("dateBlock").innerHTML = `<p class="date-tbd">${CONFIG.dateTBA}</p>`;
+}
+
+/* ---------- countdown ---------- */
+if (hasDate) {
+  const cd = $("countdown");
+  cd.classList.remove("hidden");
+  const tick = () => {
+    let diff = when - new Date();
+    if (diff <= 0) { cd.innerHTML = `<div class="cd-cell" style="min-width:auto;padding:12px 22px">
+        <b style="font-size:20px">Today is the day</b></div>`; return; }
+    const d = Math.floor(diff / 864e5);
+    const h = Math.floor(diff % 864e5 / 36e5);
+    const m = Math.floor(diff % 36e5 / 6e4);
+    const s = Math.floor(diff % 6e4 / 1e3);
+    cd.innerHTML = [[d,"Days"],[h,"Hours"],[m,"Min"],[s,"Sec"]]
+      .map(([v,l]) => `<div class="cd-cell"><b>${pad(v)}</b><span>${l}</span></div>`).join("");
+  };
+  tick(); setInterval(tick, 1000);
+}
+
+/* ---------- venue ---------- */
+$("venueBlock").innerHTML =
+  `<h3>${CONFIG.venueName}</h3><p>${CONFIG.venueAddress.replace(/\n/g,"<br>")}</p>`;
+
+/* ---------- events ---------- */
+if (CONFIG.events && CONFIG.events.length) {
+  show($("events"), CONFIG.events
+    .map(e => `<div class="event"><h4>${e.title}</h4><p>${e.detail}</p></div>`).join(""));
+}
+
+/* ---------- message & signoff ---------- */
+$("message").textContent = CONFIG.message;
+$("signoff").innerHTML   = CONFIG.signoff;
+if (CONFIG.hashtag) show($("hashtag"), CONFIG.hashtag);
+
+/* ---------- action buttons ---------- */
+const ICON = {
+  cal : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>',
+  pin : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>',
+  shr : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>',
+};
+const btns = [];
+
+if (hasDate) {
+  const fmt = d => d.toISOString().replace(/[-:]|\.\d{3}/g, "");
+  const end = CONFIG.endTime ? new Date(CONFIG.endTime) : new Date(when.getTime() + 4 * 36e5);
+  const gcal = "https://calendar.google.com/calendar/render?action=TEMPLATE"
+    + `&text=${encodeURIComponent(CONFIG.bride + " & " + CONFIG.groom + " — Wedding")}`
+    + `&dates=${fmt(when)}/${fmt(end)}`
+    + `&location=${encodeURIComponent(CONFIG.venueName + ", " + CONFIG.venueAddress)}`;
+  btns.push(`<a class="btn" href="${gcal}" target="_blank" rel="noopener">${ICON.cal}Add to calendar</a>`);
+}
+if (CONFIG.mapsUrl) {
+  btns.push(`<a class="btn" href="${CONFIG.mapsUrl}" target="_blank" rel="noopener">${ICON.pin}Get directions</a>`);
+}
+btns.push(`<button class="btn" id="shareBtn">${ICON.shr}Share invitation</button>`);
+$("actions").innerHTML = btns.join("");
+
+$("shareBtn").addEventListener("click", async () => {
+  const data = { title: document.title, text: CONFIG.shareText, url: location.href };
+  try {
+    if (navigator.share) { await navigator.share(data); return; }
+    await navigator.clipboard.writeText(location.href);
+    toast("Link copied");
+  } catch (_) { /* user dismissed the share sheet */ }
+});
+
+function toast(msg){
+  const t = $("toast");
+  t.textContent = msg; t.classList.add("on");
+  setTimeout(() => t.classList.remove("on"), 2200);
+}
+
+/* ---------- gold motes ---------- */
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const box = $("motes");
+  for (let i = 0; i < 20; i++) {
+    const m = document.createElement("div");
+    const size = 2 + Math.random() * 4;
+    m.className = "mote";
+    m.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;
+      bottom:-8vh;animation-duration:${13 + Math.random()*16}s;
+      animation-delay:${-Math.random()*25}s`;
+    box.appendChild(m);
+  }
+}
+
+/* ---------- open sequence ---------- */
+let opened = false;
+function openCard(){
+  if (opened) return;
+  opened = true;
+  $("envelope").classList.add("opened");
+  $("tapHint").classList.add("hide");
+  setTimeout(() => {
+    $("scene").classList.add("gone");
+    $("invite").classList.add("show");
+  }, 1750);
+  setTimeout(() => { $("scene").style.display = "none"; }, 3200);
+}
+$("envelope").addEventListener("click", openCard);
+$("envelope").addEventListener("keydown", e => {
+  if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openCard(); }
+});
+</script>
+</body>
+</html>
