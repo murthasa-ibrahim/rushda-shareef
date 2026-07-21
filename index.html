@@ -15,7 +15,7 @@
 <meta property="og:type"        content="website">
 <meta property="og:title"       content="Rushda &amp; Shafeeque — Wedding Invitation">
 <meta property="og:description" content="Together with their families, we invite you to celebrate our wedding.">
-<meta property="og:image"       content="https://murthasa-ibrahim.github.io/rushda-shafeeque/couple.jpg">
+<meta property="og:image"       content="https://murthasa-ibrahim.github.io/rushda-shafeeque/preview.jpg">
 <meta property="og:url"         content="https://murthasa-ibrahim.github.io/rushda-shafeeque/">
 <meta name="twitter:card"       content="summary_large_image">
 
@@ -216,16 +216,26 @@ body{
   margin-bottom:6px;
 }
 
-/* photo */
-.photo-wrap{ margin:28px auto 16px; width:172px; }
+/* photos */
+.photo-wrap{
+  margin:28px auto 18px;
+  display:flex; align-items:center; justify-content:center; gap:16px;
+}
 .photo-frame{
-  position:relative; border-radius:86px 86px 8px 8px; overflow:hidden;
+  flex:1 1 0; max-width:143px; min-width:0;
+  position:relative; border-radius:80px 80px 8px 8px; overflow:hidden;
   aspect-ratio:3/4;
   box-shadow:0 0 0 1px var(--gold), 0 0 0 6px var(--ivory), 0 0 0 7px rgba(178,142,78,.45),
              0 16px 30px rgba(44,33,21,.28);
   background:linear-gradient(160deg,#eee3cd,#ddd0b2);
 }
 .photo-frame img{ width:100%; height:100%; object-fit:cover; display:block; }
+.photo-amp{
+  flex:0 0 auto; font-family:var(--script); font-size:30px;
+  color:var(--gold); line-height:1; padding-bottom:6px;
+}
+/* only one portrait supplied → centre it a little larger */
+.photo-wrap.single .photo-frame{ max-width:172px; }
 
 /* names */
 .names{ margin:30px 0 6px; }
@@ -369,7 +379,9 @@ body{
     <p class="eyebrow rv" id="eyebrow" style="transition-delay:.20s">Together with their families</p>
 
     <div class="photo-wrap rv hidden" id="photoWrap" style="transition-delay:.26s">
-      <div class="photo-frame"><img id="photo" alt="" ></div>
+      <div class="photo-frame" id="frameA"><img id="photoA" alt=""></div>
+      <span class="photo-amp" id="photoAmp">&amp;</span>
+      <div class="photo-frame" id="frameB"><img id="photoB" alt=""></div>
     </div>
 
     <div class="names rv" style="transition-delay:.34s">
@@ -430,13 +442,18 @@ const CONFIG = {
   eyebrow : "Together with their families",
   subEyebrow : "request the pleasure of your company",
 
-  /* ── PHOTO OF THE COUPLE ────────────────────────────────────── *
-   *  1. Put the image file in this SAME folder as index.html
-   *  2. Name it couple.jpg  (or change the line below to match)
-   *  3. Leave "" to hide the photo entirely
-   *  Portrait orientation looks best (roughly 3:4, e.g. 900×1200px)
+  /* ── PHOTOS ─────────────────────────────────────────────────── *
+   *  Put the image files in this SAME folder as index.html.
+   *
+   *  Two separate portraits  → both shown side by side with a gold &
+   *  Only one filled in      → shown alone, slightly larger
+   *  Both left as ""         → the whole photo section hides itself
+   *
+   *  Portrait orientation, roughly 3:4 (e.g. 900×1200px).
+   *  A missing file is ignored silently — the card never breaks.
    * ───────────────────────────────────────────────────────────── */
-  photo : "couple.jpg",
+  photoBride : "rushda.jpg",
+  photoGroom : "shafeeque.jpg",
 
   /* ── Date & time ────────────────────────────────────────────── *
    *  Not fixed yet? Leave date as "" — the card shows a graceful
@@ -497,14 +514,38 @@ $("eyebrow").textContent = CONFIG.eyebrow;
 $("subEyebrow").textContent = CONFIG.subEyebrow;
 if (CONFIG.topLine) show($("topLine"), CONFIG.topLine);
 
-/* ---------- photo ---------- */
-if (CONFIG.photo) {
-  const img = $("photo");
-  img.alt = `${CONFIG.bride} and ${CONFIG.groom}`;
-  img.onload  = () => $("photoWrap").classList.remove("hidden");
-  img.onerror = () => $("photoWrap").classList.add("hidden");  // no file yet → silently hidden
-  img.src = CONFIG.photo;
-}
+/* ---------- photos ----------
+   Each portrait loads independently. Whatever actually resolves is what
+   gets shown, so a missing or misnamed file degrades quietly instead of
+   leaving an empty frame on the card.                                  */
+(function photos(){
+  const wrap = $("photoWrap");
+  const slots = [
+    { src: CONFIG.photoBride, frame: $("frameA"), img: $("photoA"), who: CONFIG.bride },
+    { src: CONFIG.photoGroom, frame: $("frameB"), img: $("photoB"), who: CONFIG.groom },
+  ];
+
+  let pending = 0, loaded = 0;
+
+  const settle = () => {
+    if (--pending > 0) return;
+    if (loaded === 0) { wrap.classList.add("hidden"); return; }
+    wrap.classList.toggle("single", loaded === 1);
+    $("photoAmp").classList.toggle("hidden", loaded < 2);
+    wrap.classList.remove("hidden");
+  };
+
+  slots.forEach(s => {
+    if (!s.src) { s.frame.classList.add("hidden"); return; }
+    pending++;
+    s.img.alt = s.who;
+    s.img.onload  = () => { loaded++; settle(); };
+    s.img.onerror = () => { s.frame.classList.add("hidden"); settle(); };
+    s.img.src = s.src;
+  });
+
+  if (pending === 0) wrap.classList.add("hidden");
+})();
 
 /* ---------- date ---------- */
 if (hasDate) {
